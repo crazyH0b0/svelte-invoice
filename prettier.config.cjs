@@ -1,5 +1,5 @@
 module.exports = {
-  plugins: [require("prettier-plugin-tailwindcss")],
+  plugins: [import("prettier-plugin-tailwindcss")],
   tailwindConfig: "./tailwind.config.cjs",
   useTabs: false,
   singleQuote: true,
