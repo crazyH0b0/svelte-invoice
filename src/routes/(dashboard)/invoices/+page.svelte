@@ -1,9 +1,13 @@
 <script>
   import CircledAmount from '$lib/components/CircledAmount.svelte';
-  import ThreeDots from '$lib/components/Icon/ThreeDots.svelte';
-  import View from '$lib/components/Icon/View.svelte';
   import Search from '$lib/components/Search.svelte';
-  import Tag from '$lib/components/Tag.svelte';
+  import { invoices, loadInvoices } from '$lib/stores/InvoiceStore';
+  import { onMount } from 'svelte';
+  import InvoiceRow from './InvoiceRow.svelte';
+
+  onMount(() => {
+    loadInvoices();
+  });
 </script>
 
 <svelte:head>
@@ -27,7 +31,7 @@
 </div>
 
 <div>
-  <div class=" invoice-table table-header text-daisyBush hidden lg:gird">
+  <div class=" invoice-table table-header text-daisyBush hidden lg:grid">
     <h3>Status</h3>
     <h3>Due Date</h3>
     <h3>ID</h3>
@@ -37,63 +41,13 @@
     <div />
   </div>
 </div>
-<div
-  class="invoice-table invoice-row items-center bg-white py-3 lg:py-6 rounded-lg shadow-tableRow"
->
-  <div class="status">
-    <Tag className="ml-auto lg:ml-0" label="current" />
-  </div>
-  <div class="text-sm lg:text-lg dueDate">8/1/2022</div>
-  <div class="text-sm lg:text-lg invoiceNumber">12312</div>
-  <div class="text-base text-xl font-bold clientName">compress.fm</div>
-  <div class="text-sm lg:text-lg font-mono font-bold amount text-right">$5333.00</div>
-  <div class="text-sm lg:text-lg center viewButton">
-    <a href="#" class=" text-pastelPurple hover:text-daisyBush hidden lg:block"><View /></a>
-  </div>
-  <div class=" text-lg center moreButton">
-    <button class=" justify-center text-pastelPurple hover:text-daisyBush">
-      <ThreeDots />
-    </button>
-  </div>
-</div>
-
+{#each $invoices as invoice}
+  <InvoiceRow {invoice} />
+{/each}
 <CircledAmount label="Total" amount="$1,144.00" />
 
 <style lang="postcss">
   .table-header h3 {
     @apply text-xl font-black leading-snug;
-  }
-
-  .invoice-row {
-    grid-template-areas:
-      'invoiceNumber invoiceNumber'
-      'clientName amount'
-      'dueDate status';
-  }
-  @media (min-width: 1024px) {
-    .invoice-row {
-      grid-template-areas: 'status dueDate invoiceNumber clientName amount viewButton moreButton';
-    }
-  }
-  .invoice-row .status {
-    grid-area: status;
-  }
-  .invoice-row .dueDate {
-    grid-area: dueDate;
-  }
-  .invoice-row .invoiceNumber {
-    grid-area: invoiceNumber;
-  }
-  .invoice-row .clientName {
-    grid-area: clientName;
-  }
-  .invoice-row .amount {
-    grid-area: amount;
-  }
-  .invoice-row .viewButton {
-    grid-area: viewButton;
-  }
-  .invoice-row .moreButton {
-    grid-area: moreButton;
   }
 </style>
