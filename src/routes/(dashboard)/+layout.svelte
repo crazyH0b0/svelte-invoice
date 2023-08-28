@@ -4,7 +4,7 @@
 
 <div class=" grid grid-cols-12 md:gap-x-16 bg-whisper min-h-screen">
   <Navbar />
-  <main class="col-span-12 md:col-span-8 md:pt-10">
+  <main class="col-span-12 md:col-span-8 md:pt-10 p-4">
     <slot />
   </main>
 </div>
