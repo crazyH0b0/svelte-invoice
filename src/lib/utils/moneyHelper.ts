@@ -16,3 +16,9 @@ export const twoDecimal = (num: number): string => {
 export const addThousandsSeparator = (num: string): string => {
   return num.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
 }
+
+export const sumInvoice = (invoices: Invoice[] | undefined): number => {
+  if(!invoices) return 0;
+  return invoices.reduce((acc, cur) => acc + sumLineItem(cur.lineItems), 0)
+
+}
