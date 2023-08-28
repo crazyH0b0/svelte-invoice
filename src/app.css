@@ -12,7 +12,7 @@
     @apply block font-sansSerif text-base font-bold text-monsoon;
   }
 
-  input[type="text"]:not(.search):not(.line-item),
+  /* input[type="text"]:not(.search):not(.line-item),
   input[type="number"]:not(.line-item),
   input[type="date"],
   input[type="password"],
@@ -39,7 +39,7 @@
   input[type="password"]:focus,
   input[type="email"]:focus {
     @apply border-2 border-lavenderIndigo outline-none;
-  }
+  } */
 
   input[type=number]:disabled {
     @apply appearance-none;
