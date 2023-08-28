@@ -1,21 +1,49 @@
 <script>
   import { page } from '$app/stores';
+  import Close from './Icon/Close.svelte';
+  import Hamburger from './Icon/Hamburger.svelte';
+
+  let isNavShowing = false;
 </script>
 
-<header class=" col-span-3 bg-daisyBush text-center">
-  <div>
+<svelte:head>
+  {#if isNavShowing}
+    <style lang="postcss">
+      body {
+        @apply overflow-hidden md:overflow-auto;
+      }
+    </style>
+  {/if}
+</svelte:head>
+<button
+  class="fixed top-6 z-navBarToggle right-6 md:hidden"
+  on:click={() => (isNavShowing = !isNavShowing)}
+  class:text-goldenFizz={isNavShowing}
+  class:text-daisyBush={!isNavShowing}
+>
+  {#if isNavShowing}
+    <Close width={32} height={32} />
+  {:else}
+    <Hamburger width={32} height={32} />
+  {/if}
+</button>
+<header
+  class=" fixed z-navBar transition-transform md:col-span-3 bg-daisyBush -translate-x-full md:translate-x-0 text-center md:relative w-full md:h-full h-screen"
+  class:translate-x-0={isNavShowing}
+>
+  <div class=" mt-10 mb-10">
     <a href="/invoices">
       <img src="/images/logo.svg" alt="The Dollar Holler " class=" mx-auto" />
     </a>
-    <nav>
-      <ul class=" list-none text-2xl font-bold">
-        <li><a href="/invoices" class:active={$page.url.pathname === '/invoices'}>Invoices</a></li>
-        <li><a href="/clients" class:active={$page.url.pathname === '/clients'}>Clients</a></li>
-        <li><a href="#">Setting</a></li>
-        <li><a href="#">logout</a></li>
-      </ul>
-    </nav>
   </div>
+  <nav>
+    <ul class=" list-none text-2xl font-bold">
+      <li><a href="/invoices" class:active={$page.url.pathname === '/invoices'}>Invoices</a></li>
+      <li><a href="/clients" class:active={$page.url.pathname === '/clients'}>Clients</a></li>
+      <li><a href="#">Setting</a></li>
+      <li><a href="#">logout</a></li>
+    </ul>
+  </nav>
 </header>
 
 <style lang="postcss">
