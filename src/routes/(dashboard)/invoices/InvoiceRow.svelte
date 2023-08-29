@@ -36,8 +36,8 @@
   <div class="text-sm lg:text-lg center viewButton">
     <a href="#" class=" text-pastelPurple hover:text-daisyBush hidden lg:block"><View /></a>
   </div>
-  <div class=" text-lg center moreButton">
-    <button class=" justify-center text-pastelPurple hover:text-daisyBush">
+  <div class=" text-lg lg:center moreButton">
+    <button class="  text-pastelPurple hover:text-daisyBush">
       <ThreeDots />
     </button>
   </div>

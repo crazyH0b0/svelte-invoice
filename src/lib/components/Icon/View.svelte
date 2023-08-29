@@ -3,7 +3,7 @@
     height = 24;
 </script>
 
-<svg {width} {height} viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+<svg {width} {height} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
   <path
     d="M24 12C24 12 18.9285 4.5 12 4.5C5.0715 4.5 0 12 0 12C0 12 5.0715 19.5 12 19.5C18.9285 19.5 24 12 24 12ZM12 16.5C9.5145 16.5 7.5 14.487 7.5 12C7.5 9.513 9.5145 7.5 12 7.5C14.484 7.5 16.5 9.513 16.5 12C16.5 14.487 14.484 16.5 12 16.5Z"
   />
