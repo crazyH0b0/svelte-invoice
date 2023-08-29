@@ -5,6 +5,8 @@
   import { onMount } from 'svelte';
   import InvoiceRow from './InvoiceRow.svelte';
   import { centsToDollars, sumInvoices } from '$lib/utils/moneyHelper';
+  import BlankState from './BlankState.svelte';
+  import InvoiceRowHeader from './InvoiceRowHeader.svelte';
 
   onMount(() => {
     loadInvoices();
@@ -31,25 +33,14 @@
   </div>
 </div>
 
-<div>
-  <div class=" invoice-table table-header text-daisyBush hidden lg:grid">
-    <h3>Status</h3>
-    <h3>Due Date</h3>
-    <h3>ID</h3>
-    <h3>Client</h3>
-    <h3 class="text-right">Amount</h3>
-    <div />
-    <div />
-  </div>
-</div>
-{#each $invoices as invoice}
-  <InvoiceRow {invoice} />
-{/each}
-
-<CircledAmount label="Total" amount={`${centsToDollars(sumInvoices($invoices))}`} />
-
-<style lang="postcss">
-  .table-header h3 {
-    @apply text-xl font-black leading-snug;
-  }
-</style>
+<InvoiceRowHeader />
+{#if $invoices === null}
+  Loading...
+{:else if $invoices.length <= 0}
+  <BlankState />
+{:else}
+  {#each $invoices as invoice}
+    <InvoiceRow {invoice} />
+  {/each}
+  <CircledAmount label="Total" amount={`${centsToDollars(sumInvoices($invoices))}`} />
+{/if}
