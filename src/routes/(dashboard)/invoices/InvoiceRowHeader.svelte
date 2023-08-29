@@ -1,5 +1,9 @@
+<script lang="ts">
+  export let className = '';
+</script>
+
 <div>
-  <div class=" invoice-table table-header text-daisyBush hidden lg:grid">
+  <div class={`${className} invoice-table table-header  hidden lg:grid`}>
     <h3>Status</h3>
     <h3>Due Date</h3>
     <h3>ID</h3>

@@ -22,7 +22,11 @@
   md:flex-row
   items-start md:items-center justify-between lg:mb-10"
 >
-  <Search />
+  {#if $invoices.length > 0}
+    <Search />
+  {:else}
+    <div />
+  {/if}
   <div>
     <button
       class=" relative whitespace-nowrap rounded-lg bg-lavenderIndigo
@@ -33,12 +37,12 @@
   </div>
 </div>
 
-<InvoiceRowHeader />
 {#if $invoices === null}
   Loading...
 {:else if $invoices.length <= 0}
   <BlankState />
 {:else}
+  <InvoiceRowHeader className="text-daisyBush" />
   {#each $invoices as invoice}
     <InvoiceRow {invoice} />
   {/each}
