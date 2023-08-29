@@ -1,24 +1,51 @@
-export const sumLineItem = (lineItem: LineItem[] | undefined): number => {
-  if (!lineItem) return 0;
-  return lineItem.reduce((acc, cur ) => acc+cur.amount , 0)
+/**
+ * Takes all the line items and adds them up
+ * @param {Array|undefined} lineItems
+ * @returns {number}
+ */
+export const sumLineItems = (lineItems: LineItem[] | undefined): number => {
+  if (!lineItems) return 0
+  return lineItems.reduce((prevValue, curValue) => prevValue + curValue.amount, 0)
 }
 
+/**
+ * Takes and returns a dollar amount (USD), formatted with commas and 2 decimals places
+ * @param {number} cents
+ * @returns {string}
+ */
 export const centsToDollars = (cents: number): string => {
-  const dollars = cents / 100
-  const addDecimals  = twoDecimal(dollars)
-  return addThousandsSeparator(addDecimals)
+  const dollars = cents / 100;
+  const addDecimals = twoDecimals(dollars);
+  return addThousandsSeparator(addDecimals);
 }
 
-export const twoDecimal = (num: number): string => {
-  return num.toFixed(2)
+/**
+ * Takes a number and returns the number with 2 decimal places
+ * @param {number} myNum
+ * @returns {string}
+ */
+export const twoDecimals = (myNum: number): string => {
+  return myNum.toFixed(2)
 }
 
-export const addThousandsSeparator = (num: string): string => {
-  return num.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+/**
+ * Adds a thousands separator
+ * @param {string} myNum
+ * @returns {string}
+ */
+export const addThousandsSeparator = (myNum: string): string => {
+  return myNum.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
 }
 
-export const sumInvoice = (invoices: Invoice[] | undefined): number => {
-  if(!invoices) return 0;
-  return invoices.reduce((acc, cur) => acc + sumLineItem(cur.lineItems), 0)
-
+/**
+ * Takes all the invoices and finds the total
+ * @param {Invoice} invoices
+ * @returns {number}
+ */
+export const sumInvoices = (invoices: Invoice[] | undefined): number => {
+  if (!invoices) return 0
+  return invoices.reduce((prevValue, curValue) => {
+    const invoiceSum = sumLineItems(curValue.lineItems);
+    return prevValue + invoiceSum;
+  }, 0)
 }
