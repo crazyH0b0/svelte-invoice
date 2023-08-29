@@ -1,6 +1,4 @@
 <script lang="ts">
-  import { updated } from '$app/stores';
-
   function portal(node: HTMLElement) {
     let target: HTMLBodyElement | null;
 
@@ -13,8 +11,11 @@
       node.parentElement?.removeChild(node);
     }
     update();
+
     return { update, destroy };
   }
 </script>
 
-<div class="hidden" use:portal />
+<div hidden use:portal>
+  <slot />
+</div>
