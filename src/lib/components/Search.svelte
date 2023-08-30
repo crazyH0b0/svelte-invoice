@@ -8,7 +8,7 @@
   </div>
   <input
     type="text"
-    class=" w-full md:w-[14rem] border-b-2 border-dashed border-b-pastelPurple bg-transparent
+    class=" search w-full md:w-[14rem] border-b-2 border-dashed border-b-pastelPurple bg-transparent
      font-sansSerif text-base lg:text-xl text-black outline-none focus:border-solid focus:border-b-lavenderIndigo"
     placeholder="Search by keyword"
   />

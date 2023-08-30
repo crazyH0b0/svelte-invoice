@@ -3,6 +3,7 @@
   import Arrow from './Icon/Arrow.svelte';
   import Overlay from './Overlay.svelte';
   import Portal from './Portal.svelte';
+  import InvoiceForm from '../../routes/(dashboard)/invoices/InvoiceForm.svelte';
 
   const dispatch = createEventDispatcher();
 </script>
