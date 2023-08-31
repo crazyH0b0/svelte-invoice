@@ -16,8 +16,8 @@
   <div class="table-header text-right">Amount</div>
 </div>
 {#if lineItems}
-  {#each lineItems as lineItem}
-    <LineItemRow {lineItem} on:removeLineItem />
+  {#each lineItems as lineItem, index}
+    <LineItemRow {lineItem} on:removeLineItem canDelete={index > 0} />
   {/each}
 {/if}
 <div class=" invoice-line-item">

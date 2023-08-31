@@ -49,3 +49,8 @@ export const sumInvoices = (invoices: Invoice[] | undefined): number => {
     return prevValue + invoiceSum;
   }, 0)
 }
+
+export const dollarsCents = (dollars: number) => {
+  return dollars *100
+
+}

@@ -1,15 +1,16 @@
 <script lang="ts">
+  import { v4 as uuidv4 } from 'uuid';
   import Button from '$lib/components/Button.svelte';
   import Trash from '$lib/components/Icon/Trash.svelte';
   import LineItemRows from './LineItemRows.svelte';
 
   const blankLineItem = {
-    id: '1',
+    id: uuidv4(),
     description: '',
     quantity: 0,
     amount: 0
   };
-  let lineItems: LineItem[] = [blankLineItem];
+  let lineItems: LineItem[] = [{ ...blankLineItem }];
 
   const addLineItem = () => {
     lineItems = [...lineItems, { ...blankLineItem, id: `${lineItems.length + 1}` }];
