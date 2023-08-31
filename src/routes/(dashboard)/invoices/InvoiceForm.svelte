@@ -1,16 +1,23 @@
-<script>
+<script lang="ts">
   import Button from '$lib/components/Button.svelte';
   import Trash from '$lib/components/Icon/Trash.svelte';
   import LineItemRows from './LineItemRows.svelte';
 
-  const blankLineItem = [
-    {
-      id: '1',
-      description: '',
-      quantity: 0,
-      amount: 0
-    }
-  ];
+  const blankLineItem = {
+    id: '1',
+    description: '',
+    quantity: 0,
+    amount: 0
+  };
+  let lineItems: LineItem[] = [blankLineItem];
+
+  const addLineItem = () => {
+    lineItems = [...lineItems, { ...blankLineItem, id: `${lineItems.length + 1}` }];
+  };
+
+  const removeLineItem = (event) => {
+    lineItems = lineItems.filter((item) => item.id !== event.detail);
+  };
 </script>
 
 <h2 class=" mb-7 font-sansSerif text-3xl font-bold text-daisyBush">Add an invoice</h2>
@@ -25,7 +32,7 @@
 
   <div class="field col-span-2 flex items-end gap-x-5">
     <div class=" text-base make-bold text-monsoon leading-[3.5rem] font-bold">or</div>
-    <Button label="+ Client" onClick={() => {}} style="outline" isAnimated={false} />
+    <Button label="+ Existing Client" onClick={() => {}} style="outline" isAnimated={false} />
   </div>
 
   <div class="field col-span-2">
@@ -49,7 +56,7 @@
   </div>
 
   <div class="field col-span-6">
-    <LineItemRows lineItems={blankLineItem} />
+    <LineItemRows {lineItems} on:addLineItem={addLineItem} on:removeLineItem={removeLineItem} />
   </div>
   <div class="field col-span-6">
     <label for="notes">Notes <span class="font-normal">(optional,display on invoice)</span></label>
