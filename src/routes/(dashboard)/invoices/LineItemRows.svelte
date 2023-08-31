@@ -3,10 +3,25 @@
   import CircledAmount from '$lib/components/CircledAmount.svelte';
   import { createEventDispatcher } from 'svelte';
   import LineItemRow from './LineItemRow.svelte';
+  import { centsToDollars, sumLineItems, twoDecimals } from '$lib/utils/moneyHelper';
 
   export let lineItems: LineItem[] | undefined = undefined;
 
   const dispatch = createEventDispatcher();
+  let subtotal: string = '0.00';
+  const UpdateLineItem = () => {
+    lineItems = lineItems;
+  };
+  let discountedAmount: string = '0.00';
+  let discount: number;
+  let total: string = '0.00';
+  $: if (sumLineItems(lineItems) > 0) {
+    subtotal = centsToDollars(sumLineItems(lineItems));
+  }
+  $: if (subtotal && discount) {
+    discountedAmount = centsToDollars(sumLineItems(lineItems) * (discount / 100));
+  }
+  $: total = twoDecimals(parseInt(subtotal) - parseInt(discountedAmount));
 </script>
 
 <div class=" invoice-line-item border-b-2 border-daisyBush pb-2">
@@ -17,7 +32,12 @@
 </div>
 {#if lineItems}
   {#each lineItems as lineItem, index}
-    <LineItemRow {lineItem} on:removeLineItem canDelete={index > 0} />
+    <LineItemRow
+      {lineItem}
+      on:removeLineItem
+      canDelete={index > 0}
+      on:updateLineItem={UpdateLineItem}
+    />
   {/each}
 {/if}
 <div class=" invoice-line-item">
@@ -30,7 +50,7 @@
     />
   </duv>
   <div class=" font-bold py-5 text-right text-monsoon">Subtotal</div>
-  <div class=" font-mono py-5 text-right">$250.00</div>
+  <div class=" font-mono py-5 text-right">${subtotal}</div>
 </div>
 
 <div class=" invoice-line-item">
@@ -43,15 +63,16 @@
       name="discount"
       min="0"
       max="100"
+      bind:value={discount}
     />
     <span class=" absolute right-0 top-2 text-monsoon">%</span>
   </div>
-  <div class="py-5 text-right font-mono">$10.00</div>
+  <div class="py-5 text-right font-mono">${discountedAmount}</div>
 </div>
 
 <div class="invoice-line-item">
   <div class="col-span-6">
-    <CircledAmount label="Total:" amount="$1.000.000" />
+    <CircledAmount label="Total:" amount={`$${total}`} />
   </div>
 </div>
 
