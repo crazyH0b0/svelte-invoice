@@ -1,6 +1,16 @@
 <script>
   import Button from '$lib/components/Button.svelte';
   import Trash from '$lib/components/Icon/Trash.svelte';
+  import LineItemRows from './LineItemRows.svelte';
+
+  const blankLineItem = [
+    {
+      id: '1',
+      description: '',
+      quantity: 0,
+      amount: 0
+    }
+  ];
 </script>
 
 <h2 class=" mb-7 font-sansSerif text-3xl font-bold text-daisyBush">Add an invoice</h2>
@@ -38,7 +48,9 @@
     <input type="text" name="subject" />
   </div>
 
-  <div class="field col-span-6">Line Items</div>
+  <div class="field col-span-6">
+    <LineItemRows lineItems={blankLineItem} />
+  </div>
   <div class="field col-span-6">
     <label for="notes">Notes <span class="font-normal">(optional,display on invoice)</span></label>
     <textarea id="notes" name="notes" />
