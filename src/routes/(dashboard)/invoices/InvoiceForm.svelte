@@ -7,6 +7,7 @@
   import { states } from '$lib/utils/state';
   import { clients, loadClients } from '$lib/stores/ClientStore';
   import { onMount } from 'svelte';
+  import { today } from '$lib/utils/dateHelper';
 
   const blankLineItem = {
     id: uuidv4(),
@@ -68,8 +69,8 @@
     {/if}
   </div>
   <div class="field col-span-2">
-    <label for="id">Invoice ID</label>
-    <input type="number" name="id" />
+    <label for="invoiceNumber">Invoice ID</label>
+    <input type="number" name="invoiceNumber" required />
   </div>
   {#if isNewClient}
     <div class="field grid col-span-6 gap-x-5" transition:slide>
@@ -103,12 +104,12 @@
   {/if}
   <div class="field col-span-2">
     <label for="dueDate">Due Date</label>
-    <input type="date" name="dueDate" />
+    <input type="date" name="dueDate" min={today} required />
   </div>
 
   <div class="field col-span-2 col-start-5">
     <label for="issueDate">Issue Date</label>
-    <input type="date" name="issueDate" />
+    <input type="date" name="issueDate" min={today} />
   </div>
 
   <div class="field col-span-6">
@@ -146,6 +147,10 @@
 
   <div class="field col-span-4 flex justify-end gap-x-5">
     <Button style="secondary" label="Cancel" isAnimated={false} onClick={() => {}} />
-    <Button label="Save" onClick={() => {}} />
+    <button
+      type="submit"
+      class="button bg-lavenderIndigo text-white translate-y-0 hover:-translate-y-2 transition-all shadow-colored hover:shadow-coloredHover"
+      >Save</button
+    >
   </div>
 </form>

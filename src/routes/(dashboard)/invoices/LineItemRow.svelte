@@ -4,7 +4,8 @@
   import { createEventDispatcher } from 'svelte';
 
   export let lineItem: LineItem;
-  export let canDelete: boolean = false;
+  export let canDelete = false;
+  export let isRequired = false;
   const dispatch = createEventDispatcher();
   let unitPrice: string = twoDecimals(lineItem.amount / lineItem.quantity);
   let amount: string = twoDecimals(lineItem.amount);
@@ -17,10 +18,17 @@
 
 <div class=" invoice-line-item border-b-2 border-fog py-2">
   <div>
-    <input class="line-item" type="text" name="description" bind:value={lineItem.description} />
+    <input
+      class="line-item"
+      required={isRequired}
+      type="text"
+      name="description"
+      bind:value={lineItem.description}
+    />
   </div>
   <div>
     <input
+      required={isRequired}
       class="line-item text-right"
       type="number"
       name="unitPrice"
@@ -42,6 +50,7 @@
       min="0"
       bind:value={lineItem.quantity}
       on:blur={() => dispatch('updateLineItem')}
+      required={isRequired}
     />
   </div>
 

@@ -18,8 +18,7 @@
 <button
   on:click|preventDefault={() => onClick()}
   class:isAnimated
-  class="flex items-center relative whitespace-nowrap rounded-lg
- lg:px-10 lg:py-3 font-sansSerif lg:text-xl font-black text-base px-5 py-2"
+  class="button"
   class:primary={style === 'primary'}
   class:secondary={style === 'secondary'}
   class:destructive={style === 'destructive'}
