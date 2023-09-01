@@ -14,3 +14,9 @@ export const deleteinvoice = async (id: string) => {
   });
   return invoice;
 }
+
+export const addInvoice =(invoiceToAdd: Invoice) => {
+  invoices.update((prev: Invoice[])=>[...prev, invoiceToAdd])
+  return invoiceToAdd
+
+}

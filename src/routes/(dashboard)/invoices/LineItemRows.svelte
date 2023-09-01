@@ -9,11 +9,9 @@
 
   const dispatch = createEventDispatcher();
   let subtotal: string = '0.00';
-  const UpdateLineItem = () => {
-    lineItems = lineItems;
-  };
+
   let discountedAmount: string = '0.00';
-  let discount: number;
+  export let discount: number = 0;
   let total: string = '0.00';
   $: if (sumLineItems(lineItems) > 0) {
     subtotal = centsToDollars(sumLineItems(lineItems));
@@ -21,7 +19,7 @@
   $: if (subtotal && discount) {
     discountedAmount = centsToDollars(sumLineItems(lineItems) * (discount / 100));
   }
-  $: total = twoDecimals(parseInt(subtotal) - parseInt(discountedAmount));
+  $: total = twoDecimals(Number(subtotal) - Number(discountedAmount));
 </script>
 
 <div class=" invoice-line-item border-b-2 border-daisyBush pb-2">
@@ -36,7 +34,7 @@
       {lineItem}
       on:removeLineItem
       canDelete={index > 0}
-      on:updateLineItem={UpdateLineItem}
+      on:updateLineItem
       isRequired={index === 0}
     />
   {/each}
