@@ -5,6 +5,8 @@
   import LineItemRows from './LineItemRows.svelte';
   import { slide } from 'svelte/transition';
   import { states } from '$lib/utils/state';
+  import { clients, loadClients } from '$lib/stores/ClientStore';
+  import { onMount } from 'svelte';
 
   const blankLineItem = {
     id: uuidv4(),
@@ -21,6 +23,9 @@
   const removeLineItem = (event) => {
     lineItems = lineItems.filter((item) => item.id !== event.detail);
   };
+  onMount(() => {
+    loadClients();
+  });
 </script>
 
 <h2 class=" mb-7 font-sansSerif text-3xl font-bold text-daisyBush">Add an invoice</h2>
@@ -31,7 +36,9 @@
       <label for="client">Client</label>
       <div class="flex items-end gap-x-5">
         <select name="client" id="client">
-          <option value="zeal">Zeal</option>
+          {#each $clients as client}
+            <option value={client.id}>{client.name}</option>
+          {/each}
         </select>
 
         <div class=" text-base make-bold text-monsoon leading-[3.5rem] font-bold">or</div>
